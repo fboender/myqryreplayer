@@ -7,11 +7,15 @@ import MySQLdb
 import time
 import getpass
 
+__AUTHOR__ = "Ferry Boender"
+__VERSION__ = "0.1"
+
 qry_file = '/var/log/mysql/mysql.log';
 
 parser = optparse.OptionParser(add_help_option=False)
 parser.set_usage(sys.argv[0] + " [option] <DATABASE> <SESSION_ID>")
 
+parser.add_option("-v", "--version", dest="version", action="store_true", default=False, help="Show version")
 parser.add_option("-V", "--verbose", dest="verbose", action="store_true", default=False, help="Show more output")
 parser.add_option("-l", "--logfile", dest="logfile", action="store", default="/var/log/mysql/mysql.log", help="Path to the MySQL query log file")
 parser.add_option("-u", dest="username", action="store", default="", help="MySQL Username")
@@ -25,6 +29,9 @@ parser.add_option("--help", dest="help", action="store_true", default="", help="
 
 (options, args) = parser.parse_args()
 
+if options.version:
+	sys.stdout.write("v%s: Copyright (C) 2009, %s. MIT License.\n" % (__VERSION__, __AUTHOR__))
+	sys.exit(0)
 if options.help or not len(args) == 2:
 	parser.print_help()
 	sys.exit(0)
